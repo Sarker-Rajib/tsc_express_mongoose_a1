@@ -13,11 +13,11 @@ const createNewOrder = async (req: Request, res: Response) => {
             message: "Order created successfully!",
             data: result,
         });
-    } catch (error) {
+    } catch (Error: any) {
         res.status(500).json({
             success: false,
-            message: "Something Went wrong",
-            data: error,
+            message: Error.message,
+            Error
         });
     }
 }
@@ -49,11 +49,11 @@ const getAllOrders = async (req: Request, res: Response) => {
                 message: "Something Went wrong",
             });
         }
-    } catch (error) {
+    } catch (Error: any) {
         res.status(500).json({
             success: false,
             message: "Something Went wrong",
-            data: error,
+            Error,
         });
     }
 }
