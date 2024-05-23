@@ -27,6 +27,7 @@ const productSchema = new Schema<TProduct>({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   description: {
     type: String,
@@ -41,7 +42,7 @@ const productSchema = new Schema<TProduct>({
     required: true,
   },
   tags: Array<String>,
-  variants: varinatsSchema,
+  variants: [varinatsSchema],
   inventory: inventorySchema,
 });
 
