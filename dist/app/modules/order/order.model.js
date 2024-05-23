@@ -22,9 +22,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Order = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
+const product_model_1 = require("../product/product.model");
 const orderModel = new mongoose_1.Schema({
     email: {
         type: String,
@@ -42,5 +52,16 @@ const orderModel = new mongoose_1.Schema({
         type: Number,
         required: true
     },
+});
+orderModel.pre('save', function (next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const product = yield product_model_1.Product.find({ _id: Object(this.productId) });
+        if (product[0].inventory.quantity < this.quantity) {
+            return next(new Error('Inventory is not sufficient'));
+        }
+        else {
+            next();
+        }
+    });
 });
 exports.Order = mongoose_1.default.model("Order", orderModel);

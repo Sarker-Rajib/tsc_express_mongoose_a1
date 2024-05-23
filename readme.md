@@ -1,6 +1,6 @@
 📖 Documentation
 
-- git clone -repo url
+- git clone https://github.com/Sarker-Rajib/tsc_express_mongoose_a1.git
 
 🌱 Install
 Run the commands-

@@ -23,11 +23,11 @@ const createNewOrder = (req, res) => __awaiter(void 0, void 0, void 0, function*
             data: result,
         });
     }
-    catch (error) {
+    catch (Error) {
         res.status(500).json({
             success: false,
-            message: "Something Went wrong",
-            data: error,
+            message: Error.message,
+            Error
         });
     }
 });
@@ -57,11 +57,11 @@ const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             });
         }
     }
-    catch (error) {
+    catch (Error) {
         res.status(500).json({
             success: false,
             message: "Something Went wrong",
-            data: error,
+            Error,
         });
     }
 });
