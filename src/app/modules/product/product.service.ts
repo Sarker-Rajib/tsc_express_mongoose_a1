@@ -11,6 +11,12 @@ const getAllProductsFromDB = async () => {
   return result;
 };
 
+const getSearchedProductsFromDB = async (query: string) => {
+  let regex = new RegExp(query, "i");
+  const result = await Product.aggregate([{ $match: { name: regex } }]);
+  return result;
+};
+
 const getSingleProductFromDB = async (productId: string) => {
   const result = await Product.find({ _id: Object(productId) });
   if (result.length < 1) {
@@ -44,4 +50,5 @@ export const ProductServices = {
   getSingleProductFromDB,
   updateProductInDB,
   deleteProductFromDB,
+  getSearchedProductsFromDB,
 };

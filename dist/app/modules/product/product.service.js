@@ -19,6 +19,11 @@ const getAllProductsFromDB = () => __awaiter(void 0, void 0, void 0, function* (
     const result = yield product_model_1.Product.find();
     return result;
 });
+const getSearchedProductsFromDB = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    let regex = new RegExp(query, "i");
+    const result = yield product_model_1.Product.aggregate([{ $match: { name: regex } }]);
+    return result;
+});
 const getSingleProductFromDB = (productId) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_model_1.Product.find({ _id: Object(productId) });
     if (result.length < 1) {
@@ -42,4 +47,5 @@ exports.ProductServices = {
     getSingleProductFromDB,
     updateProductInDB,
     deleteProductFromDB,
+    getSearchedProductsFromDB,
 };
