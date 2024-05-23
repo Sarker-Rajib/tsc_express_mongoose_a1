@@ -49,6 +49,7 @@ const productSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: true,
+        unique: true,
     },
     description: {
         type: String,
@@ -63,7 +64,7 @@ const productSchema = new mongoose_1.Schema({
         required: true,
     },
     tags: (Array),
-    variants: varinatsSchema,
+    variants: [varinatsSchema],
     inventory: inventorySchema,
 });
 exports.Product = mongoose_1.default.model("Product", productSchema);

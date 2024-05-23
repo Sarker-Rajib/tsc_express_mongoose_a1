@@ -13,4 +13,11 @@ app.get("/", (req: Request, res: Response) => {
 // product api
 app.use("/api/products", ProductRoutes.router);
 
+app.get("*", (req: Request, res: Response) => {
+  res.status(500).json({
+    success: false,
+    message: "Route not found",
+  });
+});
+
 export default app;

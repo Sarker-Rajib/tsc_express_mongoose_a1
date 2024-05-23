@@ -5,7 +5,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
+const cors_1 = __importDefault(require("cors"));
+const product_route_1 = require("./app/modules/product/product.route");
+app.use(express_1.default.json());
+app.use((0, cors_1.default)());
 app.get("/", (req, res) => {
-    res.send("Hello World! This is Server tuntun");
+    res.send("Hello There! This is E-Commerce asm2 Server");
+});
+// product api
+app.use("/api/products", product_route_1.ProductRoutes.router);
+app.get("*", (req, res) => {
+    res.status(500).json({
+        success: false,
+        message: "Route not found",
+    });
 });
 exports.default = app;

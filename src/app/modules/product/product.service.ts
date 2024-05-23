@@ -6,12 +6,42 @@ const addProductIntoDB = async (productData: TProduct) => {
   return result;
 };
 
-const getProductsFromDB = async () => {
+const getAllProductsFromDB = async () => {
   const result = await Product.find();
+  return result;
+};
+
+const getSingleProductFromDB = async (productId: string) => {
+  const result = await Product.find({ _id: Object(productId) });
+  if (result.length < 1) {
+    return null;
+  }
+  return result;
+};
+
+const updateProductInDB = async (
+  productId: string,
+  validatedProductdata: TProduct
+) => {
+  const result = await Product.updateOne(
+    { _id: Object(productId) },
+    validatedProductdata,
+    {
+      upsert: true,
+    }
+  );
+  return result;
+};
+
+const deleteProductFromDB = async (productId: string) => {
+  const result = await Product.deleteOne({ _id: Object(productId) });
   return result;
 };
 
 export const ProductServices = {
   addProductIntoDB,
-  getProductsFromDB,
+  getAllProductsFromDB,
+  getSingleProductFromDB,
+  updateProductInDB,
+  deleteProductFromDB,
 };
